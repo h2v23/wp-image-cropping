@@ -10,19 +10,6 @@
 					<td></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="wpic_default_width"><?php _e('Image default dimension', 'wpic'); ?></label></th>
-					<td>
-						<ul>
-							<li>
-								<input name="wpic_default_width" type="number" step="1" min="1" id="wpic_default_width" value="<?php echo wpic_get('default_width'); ?>" class="small-text"> <?php _e('width', 'wpic'); ?>
-							</li>
-							<li>
-								<input name="wpic_default_height" type="number" step="1" min="1" id="wpic_default_height" value="<?php echo wpic_get('default_height'); ?>" class="small-text"> <?php _e('height', 'wpic'); ?></td>
-							</li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
 					<th scope="row"><label for="wpic_cropping_mode"><?php _e('Image cropping type', 'wpic'); ?></label></th>
 
 					

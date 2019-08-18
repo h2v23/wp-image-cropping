@@ -15,7 +15,6 @@ function wpic_admin_url($trail = '') {
 
 function wpic_notification() {
   if (isset($_GET['_update'])&&(isset($_GET['page']))) {
-
     $type = (int) (isset($_GET['_update'])) ? $_GET['_update'] : 0 ;
 
     $class = '';
@@ -61,9 +60,13 @@ function wpic_parse_image($image_url)  {
   $link = substr($image_url, 0, strlen($image_url) - strlen($type) - 1);
   preg_match("/\d+x\d+$/i", $link, $match);
   $dimention = explode('x', $match[0]);
-  if(count($dimention)!==2)
-    return false;
-  $real_path = str_replace('-'.$match[0], '', $image_url);
+ 
+  if(count($dimention)==0) {
+    $dimention[0] = '';
+    $dimention[1] = '';
+  }
+
+  $real_path = preg_replace("/(-\d+x\d+)/i", '', $image_url);
   return [
     'dimension' => $match[0],
     'width' => $dimention[0],
@@ -97,9 +100,9 @@ function wpic_cache_allowed() {
 function wpic_current_url_with_cache_file_existed() {
   $image_slug = wpic_current_slug();
   if (wpic_is_image($image_slug)) {
-    $cache_file = wpic_cache_file($image_slug);
+      $cache_file = wpic_cache_file($image_slug);
     if (file_exists($cache_file)) {
-      wpic_display_default();
+      wpic_display_default($cache_file);
     } elseif (wpic_cache_allowed()) {
       return true;
     }
@@ -107,11 +110,9 @@ function wpic_current_url_with_cache_file_existed() {
   return false;
 }
 
-function wpic_display_default() {
-  $default_path = wpic_cache_file('default');
-  echo 'ahihi';
-  echo $default_path;die;
+function wpic_display_default($default_path = null) {
   header('Content-Type: image/png');
+  header('Cache-Control: max-age=86400');
   echo file_get_contents($default_path);
   die;
 }
