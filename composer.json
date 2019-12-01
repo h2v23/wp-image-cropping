@@ -1,0 +1,15 @@
+{
+    "require": {
+        "h2v23/sagoboot": "^1.0",
+        "gumlet/php-image-resize": "^1.9",
+        "rosell-dk/webp-convert": "^2.3"
+    },
+    "autoload": {
+        "files": [
+            "functions.php"
+        ],
+        "psr-4": {
+            "WPIC\\": "class/"
+        }
+    }
+}
